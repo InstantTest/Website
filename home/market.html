@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+ <style>
+    	.docs-search {
+		  margin:10px 0;
+		  background:#3276b1;
+		  border-radius:20px;
+		  padding-left: 5px;
+		  border-color: #285e8e;
+		  vertical-align:middle;
+		}
+		
+		
+		.text-search {
+		margin: 1% 0% 1% 0%;
+		background:white;
+		border-radius: 20px;
+		padding-left: 5px;
+		vertical-align: middle;
+		width: 80%;
+		}
+		
+    </style>
+<div>
+		<div class="modal fade" id="modal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                <h2 class="modal-title">{{tests[selected].Title}}</h2>
+              </div> <!-- end modal-header -->
+              
+               <div class="modal-body">
+                 	<table>
+					<tr>
+					  <td><h4>ID: <b><em>{{tests[selected].ID}}</em></b></h4></td>
+					</tr>
+					<tr>
+					  <td><h4>Author: <b><em>{{tests[selected].Author}}</em></b></h4></td>
+					</tr>
+					<tr>
+					  <td><h4>Tag(s): <b><em>{{tests[selected].Tag}}</em></b></h4></td>
+					</tr>
+					<tr>
+					  <td><h4>Price: <b><em>{{free(tests[selected].Price)}}</em></b></h4></td>
+					</tr>
+					<tr>
+					  <td><h4>Description: <b><em>{{tests[selected].Description}}</em></b></h4></td>
+					</tr>
+					</table>
+                </div>
+
+              <div class="modal-footer">
+              	<div ng-show="tests[selected].Price === '0.00'">Free download code is:<h3>{{tests[selected].Code}}</h3>
+              	<small><em><a href="http://it.addybs.com/pages/Download_help.html" target="_blank">what's this?</a></em></small>
+              	</div>
+              	
+              	<button class="btn btn-success" data-dismiss="modal" 
+              	ng-click="client(tests[selected].ID)">View in Client</button>
+              	
+              	<button type="button" ng-click="buy(tests[selected].ID)" 
+              	ng-hide="tests[selected].Price === '0.00'" class="btn btn-primary">Buy</button>
+              	
+              	<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                
+              </div> <!-- end modal-footer -->
+            </div> <!-- end modal-content -->
+          </div> <!-- end modal-dialog -->
+        </div> <!-- end modal -->
+        
+        
+        <div class="modal fade" id="load">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+                <h2 class="modal-title">Working</h2>
+              </div> <!-- end modal-header -->
+              
+                <div class="modal-body">
+                 <h4>Please wait while the market is being populated...</h4>
+                </div>
+            </div> <!-- end modal-content -->
+          </div> <!-- end modal-dialog -->
+        </div> <!-- end modal -->
+	
+ <!-- Jumbotron -->
+      <div class="jumbotron">
+        <h1>Market</h1>
+        <p class="lead">With the Instant Test market growing, finding tests dedicated to your field of study has never been much easier.</p>
+      </div>
+              
+<h2 class="sub-header">New in the market</h2>
+  <div class="row">
+   	<div class="col-lg-4" ng-repeat="test in tests | limitTo:3">
+      <h3>{{test.Title}}</h3>
+      <p>{{test.Description}}</p>
+      <p><button class="btn btn-primary" ng-click="see($index)">View details &raquo;</button></p>
+    </div>
+  </div>
+                  
+                  
+                  
+                  
+	<br/><br/>
+  
+  
+   <div class="row">
+   	<div class="col-lg-8">
+     <h2 class="sub-header">Already in the market</h2>
+    </div>
+    <div class="col-lg-3">
+     	<form class="docs-search">
+          <span class="glyphicon glyphicon-search search-icon"></span>
+          <input class="text-search" type="search" ng-model="search" style="border: 0px">
+        </form>
+    </div>
+  </div>
+
+	
+
+          
+	<div class="table-responsive">
+	  
+		<table class="table table-striped">
+			<thead>
+			<tr>
+			<th style="text-align:left">No.</th>
+			<th style="text-align:left">Name</th>
+			<th style="text-align:left">Tag(s)</th>
+			<th style="text-align:left">Price</th>
+			<th style="text-align:left">Date</th>
+			<th style="text-align:left">Details</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="test in tests | filter:search">
+			 <td>{{$index + 1}}</td>
+			 <td>{{test.Title}}</td>
+			 <td>{{test.Tag}}</td>
+			 <td>{{free(test.Price)}}</td>
+			 <td>{{test.Date}}</td>
+			
+			 <td><button class="btn btn-xs btn-default" ng-click="see($index)">
+			                   <span class="glyphicon glyphicon-eye-open"></span> view</button></td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
